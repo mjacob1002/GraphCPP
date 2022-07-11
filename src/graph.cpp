@@ -69,11 +69,16 @@ void Graph::dfs(Vertex curr, unordered_set<Vertex>& visited){
 }
 
 Edge Graph::_removeEdge(Vertex p, Vertex q){
+	// get all of the neighbors of p
 	auto& neighbors_p = _adj[p];
+	// if there is no connection between p and q, just return a default edge
 	if(neighbors_p.count(q) == 0) return Edge();
+	// get the particular edge
 	Edge data = neighbors_p[q];
+	// remove q from the adjacency list of p
 	neighbors_p.erase(q); // remove it from the adjacency list
 	Edge target_to_remove;
+	/*
 	for(Edge e : _edgeset) { // look for the edge with the corresponding source and destination
 		if(e.source == p && e.destination == q)
 		{
@@ -81,7 +86,9 @@ Edge Graph::_removeEdge(Vertex p, Vertex q){
 			break;
 		}
 	}
-	_edgeset.erase(target_to_remove); // remove the edge from the edgeset
+	*/
+	// _edgeset.erase(target_to_remove); // remove the edge from the edgeset
+	_edgeset.erase(data);
 	return data;
 }
 
@@ -104,4 +111,12 @@ void Graph::removeVertex(Vertex v) {
 	}
 
 	_adj.erase(v); // remove from the overall adjacency list
+}
+
+size_t Graph::numEdges(){
+	return _edgeset.size();
+}
+
+size_t Graph::numVertices(){
+	return _adj.size();
 }
