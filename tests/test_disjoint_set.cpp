@@ -33,3 +33,19 @@ TEST_CASE("Simple Acyclic Utility"){
 	}
 }
 
+#include "MST/kruskal.h"
+TEST_CASE("Simple MST thing"){
+	Graph g(false);
+	g.addVertex("A");
+	g.addVertex("B");
+	g.addVertex("C");
+	SECTION("Cyclic graph turned into MST"){
+		g.addEdge("A", "B");
+		g.addEdge("A", "C");
+		g.addEdge("B", "C");
+		Graph mst = kruskal(g);
+		mst.dfs();
+		REQUIRE(isAcyclic{}(mst));
+	}
+}
+

@@ -11,6 +11,7 @@ message("BUILDING THE SHARED LIBRARY graphcpp")
 add_library(graphcpp SHARED 
 src/graph.cpp
 src/MST/DisjointSet.cpp
+src/MST/kruskal.cpp
 )
 target_include_directories(graphcpp PRIVATE include/)
 message("BUILT SHARED LIBRARY graphcpp")

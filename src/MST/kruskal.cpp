@@ -1,7 +1,7 @@
 #include "MST/kruskal.h"
 
 Graph kruskal(const Graph& g){
-	assert(!g.isDirected)
+	assert(!g.isDirected());
 	std::vector<Edge> edges = g.getEdges();	
 	std::vector<Vertex> vertices = g.getVertices();
 	Graph ret(false);
@@ -13,17 +13,17 @@ Graph kruskal(const Graph& g){
 	for(Vertex v : vertices)
 		indirection[v] = indirection_counter++;
 
-	bool comparison = [](Edge first, Edge second) {
-		return first.weight < second.weight;
-	}
+	auto comparison = [](Edge first, Edge second) {
+		return first.weight > second.weight;
+	};
 
-	std::priority_queue<Edge, std::vector<Edge>, comparison> pq(comparison, edges);
+	std::priority_queue<Edge, std::vector<Edge>, decltype(comparison) > pq(comparison);
 	DisjointSet djs(g.numVertices());
 	while(!pq.empty()){
 		Edge top = pq.top();
 		pq.pop();
 		if(djs.isConnected(indirection[top.source], indirection[top.destination])) continue;
-		ret.addEdge(source, destination);
+		ret.addEdge(top.source, top.destination);
 		djs.setUnion(indirection[top.source], indirection[top.destination]);
 	}
 	return ret;
