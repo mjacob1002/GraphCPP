@@ -29,7 +29,6 @@ void Graph::addEdge(Vertex p, Vertex q, double weight){
 
 void Graph::addEdge(Vertex p, Vertex q) {
 	addEdge(p, q, 1.0);
-	if(!_directed) addEdge(q,p,1.0);
 }
 
 void Graph::addVertex(Vertex v) {
@@ -37,7 +36,7 @@ void Graph::addVertex(Vertex v) {
 	_adj[v] = std::unordered_map<Vertex, Edge>(); // map the new vertex to an empty adjacency list
 }
 
-std::vector<Vertex> Graph::getVertices(){
+std::vector<Vertex> Graph::getVertices() const{
 	std::vector<Vertex> res;
 	for(auto p : _adj) {
 		res.push_back(p.first);
@@ -113,10 +112,26 @@ void Graph::removeVertex(Vertex v) {
 	_adj.erase(v); // remove from the overall adjacency list
 }
 
-size_t Graph::numEdges(){
+size_t Graph::numEdges() const {
 	return _edgeset.size();
 }
 
-size_t Graph::numVertices(){
+size_t Graph::numVertices() const {
 	return _adj.size();
+} 
+
+std::vector<Edge> Graph::getEdges() const {
+	std::vector<Edge> edges;
+	for(Edge e : _edgeset){
+		edges.push_back(e);
+	}
+	return edges;
+}
+
+std::unordered_set<Edge> Graph::getEdgeSet() const {
+	return _edgeset;
+}
+
+bool Graph::isDirected() const{
+	return _directed;
 }

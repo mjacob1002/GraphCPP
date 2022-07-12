@@ -44,10 +44,14 @@ class Graph {
 		void addEdge(Vertex p, Vertex q); // add an edge between two vertices
 		void addEdge(Vertex p, Vertex q, double weight); 
 		void addVertex(Vertex v); // add a vertex to the graph
-		std::vector<Vertex> getVertices();
+		std::vector<Vertex> getVertices() const;
+		std::vector<Edge> getEdges() const;
+		std::unordered_set<Edge> getEdgeSet() const;
 		void dfs();
 		Edge removeEdge(Vertex p, Vertex q); // deals with the directed or undirected nature of graphs
 		void removeVertex(Vertex v); // remove the vertex and all the corresponding edges from the graph
-		size_t numEdges();
-		size_t numVertices();
+		size_t numEdges() const;
+		size_t numVertices() const;
+		bool isDirected() const;
+		friend struct isAcyclic;
 };

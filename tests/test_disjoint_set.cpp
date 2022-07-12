@@ -4,6 +4,7 @@
 #include "MST/DisjointSet.h"
 #include "catch.hpp"
 
+
 TEST_CASE("Simple Disjoint Set"){
 	DisjointSet ds(10);
 	REQUIRE(!ds.isConnected(0, 9));
@@ -17,5 +18,18 @@ TEST_CASE("Simple Disjoint Set"){
 	}
 }
 
-
+#include "utility.h"
+TEST_CASE("Simple Acyclic Utility"){
+	Graph g(false);
+	g.addVertex("A");
+	g.addVertex("B");
+	g.addVertex("C");
+	SECTION("Contains a cycle"){
+		g.addEdge("A", "B");
+		g.addEdge("A", "C");
+		REQUIRE(isAcyclic{}(g) == true);
+		g.addEdge("B", "C");
+		REQUIRE(isAcyclic{}(g) == false);
+	}
+}
 
